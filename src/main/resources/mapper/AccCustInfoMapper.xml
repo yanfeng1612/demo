@@ -1,0 +1,393 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.demo.dao.AccCustInfoMapper">
+
+    <resultMap id="baseResultMap" type="com.demo.domain.AccCustInfo">
+    
+        <result property="id" column="id" />
+        <result property="uuid" column="uuid" />
+        <result property="custNo" column="cust_no" />
+        <result property="pin" column="pin" />
+        <result property="profFlag" column="prof_flag" />
+        <result property="nationality" column="nationality" />
+        <result property="version" column="version" />
+        <result property="yn" column="yn" />
+        <result property="createdTime" column="created_time" />
+        <result property="modifiedTime" column="modified_time" />
+        <result property="bizDate" column="biz_date" />
+        
+    </resultMap>
+
+    <sql id="queryColumns">
+        <trim prefixOverrides=",">
+        
+            ,id
+        
+            ,uuid
+        
+            ,cust_no
+        
+            ,pin
+        
+            ,prof_flag
+        
+            ,nationality
+        
+            ,version
+        
+            ,yn
+        
+            ,created_time
+        
+            ,modified_time
+        
+            ,biz_date
+        
+        </trim>
+    </sql>
+
+    <sql id="wherecontation">
+        <if test="query!= null">
+        
+            <if test="query.id != null">
+                and id = #{query.id}
+            </if>
+        
+            <if test="query.uuid != null and query.uuid != ''">
+                and uuid = #{query.uuid}
+            </if>
+        
+            <if test="query.custNo != null and query.custNo != ''">
+                and cust_no = #{query.custNo}
+            </if>
+        
+            <if test="query.pin != null and query.pin != ''">
+                and pin = #{query.pin}
+            </if>
+        
+            <if test="query.profFlag != null">
+                and prof_flag = #{query.profFlag}
+            </if>
+        
+            <if test="query.nationality != null and query.nationality != ''">
+                and nationality = #{query.nationality}
+            </if>
+        
+            <if test="query.version != null and query.version != ''">
+                and version = #{query.version}
+            </if>
+        
+            <if test="query.yn != null">
+                and yn = #{query.yn}
+            </if>
+        
+            <if test="query.createdTime != null">
+                and created_time = #{query.createdTime}
+            </if>
+        
+            <if test="query.modifiedTime != null">
+                and modified_time = #{query.modifiedTime}
+            </if>
+        
+            <if test="query.bizDate != null">
+                and biz_date = #{query.bizDate}
+            </if>
+        
+        </if>
+    </sql>
+
+    <sql id="getInsertField">
+        <trim prefixOverrides=",">
+        
+        <if test="id != null">
+            ,id
+        </if>
+        
+        <if test="uuid != null">
+            ,uuid
+        </if>
+        
+        <if test="custNo != null">
+            ,cust_no
+        </if>
+        
+        <if test="pin != null">
+            ,pin
+        </if>
+        
+        <if test="profFlag != null">
+            ,prof_flag
+        </if>
+        
+        <if test="nationality != null">
+            ,nationality
+        </if>
+        
+        <if test="version != null">
+            ,version
+        </if>
+        
+        <if test="yn != null">
+            ,yn
+        </if>
+        
+        <if test="createdTime != null">
+            ,created_time
+        </if>
+        
+        <if test="modifiedTime != null">
+            ,modified_time
+        </if>
+        
+        <if test="bizDate != null">
+            ,biz_date
+        </if>
+        
+        </trim>
+    </sql>
+
+    <sql id="getInsertFieldValue">
+        <trim prefixOverrides=",">
+        
+        <if test="id != null">
+            ,#{id}
+        </if>
+        
+        <if test="uuid != null">
+            ,#{uuid}
+        </if>
+        
+        <if test="custNo != null">
+            ,#{custNo}
+        </if>
+        
+        <if test="pin != null">
+            ,#{pin}
+        </if>
+        
+        <if test="profFlag != null">
+            ,#{profFlag}
+        </if>
+        
+        <if test="nationality != null">
+            ,#{nationality}
+        </if>
+        
+        <if test="version != null">
+            ,#{version}
+        </if>
+        
+        <if test="yn != null">
+            ,#{yn}
+        </if>
+        
+        <if test="createdTime != null">
+            ,#{createdTime}
+        </if>
+        
+        <if test="modifiedTime != null">
+            ,#{modifiedTime}
+        </if>
+        
+        <if test="bizDate != null">
+            ,#{bizDate}
+        </if>
+        
+        </trim>
+    </sql>
+
+    <insert id="insert" parameterType="AccCustInfo"  useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        /* 客户信息表 */
+        INSERT  INTO  acc_cust_info
+        (
+            <include refid="getInsertField" />
+        )
+        VALUES (
+            <include refid="getInsertFieldValue" />
+        )
+    </insert>
+
+    <insert id="insertBatch" parameterType="java.util.List">
+        INSERT  INTO  acc_cust_info
+        <trim prefix="(" suffix=")" prefixOverrides=",">
+        
+            ,id	/* 自动编号 */
+        
+            ,uuid	/* 唯一标识:客户号_PIN */
+        
+            ,cust_no	/* 客户编号 */
+        
+            ,pin	/* 用户pin */
+        
+            ,prof_flag	/* 专业投资者标识 0-普通投资者 1-专业投资者 */
+        
+            ,nationality	/* 国籍代码 156-中国 */
+        
+            ,version	/* 版本号 yyyyMMddHHmmss */
+        
+            ,yn	/* 数据状态 0-无效 1-有效 */
+        
+            ,created_time	/* 创建时间 */
+        
+            ,modified_time	/* 最后修改时间 */
+        
+            ,biz_date	/* 业务 */
+        
+        </trim>
+        VALUES
+        <foreach collection="list" item="item" index="index" separator="," >
+            <trim prefix="(" suffix=")" prefixOverrides=",">
+            
+                ,#{item.id}	/* 自动编号 */
+            
+                ,#{item.uuid}	/* 唯一标识:客户号_PIN */
+            
+                ,#{item.custNo}	/* 客户编号 */
+            
+                ,#{item.pin}	/* 用户pin */
+            
+                ,#{item.profFlag}	/* 专业投资者标识 0-普通投资者 1-专业投资者 */
+            
+                ,#{item.nationality}	/* 国籍代码 156-中国 */
+            
+                ,#{item.version}	/* 版本号 yyyyMMddHHmmss */
+            
+                ,#{item.yn}	/* 数据状态 0-无效 1-有效 */
+            
+                ,#{item.createdTime}	/* 创建时间 */
+            
+                ,#{item.modifiedTime}	/* 最后修改时间 */
+            
+                ,#{item.bizDate}	/* 业务 */
+            
+            </trim>
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdate" parameterType="AccCustInfo"  useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        /* 客户信息表 */
+        INSERT  INTO  acc_cust_info
+        (
+            <include refid="getInsertField" />
+        )
+        VALUES (
+            <include refid="getInsertFieldValue" />
+        ) ON DUPLICATE KEY
+        <trim prefix="UPDATE" suffixOverrides=",">
+            
+                    uuid = VALUES(uuid),
+                
+                    cust_no = VALUES(cust_no),
+                
+                    pin = VALUES(pin),
+                
+                    prof_flag = VALUES(prof_flag),
+                
+                    nationality = VALUES(nationality),
+                
+                    version = VALUES(version),
+                
+                    yn = VALUES(yn),
+                
+                    biz_date = VALUES(biz_date),
+                
+        </trim>
+    </insert>
+
+    <delete id="deleteById" parameterType="java.lang.Long">
+        DELETE FROM acc_cust_info WHERE id = #{id}
+    </delete>
+
+    <update id="update" parameterType="AccCustInfo" >
+        UPDATE  acc_cust_info
+        /* 客户信息表 */
+        <trim prefix="SET" prefixOverrides=",">
+        
+            <if test="uuid != null">
+                ,uuid = #{uuid}
+            </if>
+        
+            <if test="custNo != null">
+                ,cust_no = #{custNo}
+            </if>
+        
+            <if test="pin != null">
+                ,pin = #{pin}
+            </if>
+        
+            <if test="profFlag != null">
+                ,prof_flag = #{profFlag}
+            </if>
+        
+            <if test="nationality != null">
+                ,nationality = #{nationality}
+            </if>
+        
+            <if test="version != null">
+                ,version = #{version}
+            </if>
+        
+            <if test="yn != null">
+                ,yn = #{yn}
+            </if>
+        
+            <if test="bizDate != null">
+                ,biz_date = #{bizDate}
+            </if>
+        
+        </trim>
+        WHERE
+        id = #{id}
+    </update>
+
+    <select id="findById" parameterType="java.lang.Long" resultMap="baseResultMap">
+        SELECT
+        <include refid="queryColumns" />
+        FROM  acc_cust_info  /* 客户信息表 */
+        WHERE
+        id = #{id}
+    </select>
+
+    <select id="getAllList" parameterType="com.demo.utils.Query"  resultMap="baseResultMap">
+        SELECT
+        <include refid="queryColumns" />
+        FROM acc_cust_info  /* 客户信息表 */
+        WHERE 1 = 1
+        <include refid="wherecontation"/>
+        ORDER BY id DESC
+    </select>
+
+    <select id="getPagenationList" parameterType="com.demo.utils.PageQueryWrapper" resultMap="baseResultMap">
+        SELECT
+        <include refid="queryColumns" />
+        FROM   acc_cust_info /*  客户信息表 */
+        WHERE 1=1
+        <include refid="wherecontation"/>
+        ORDER BY id DESC
+        LIMIT  #{startRow} ,#{endRow}
+    </select>
+
+    <select id="getPagenationListById" parameterType="com.demo.utils.IdPageQuery" resultMap="baseResultMap">
+        SELECT
+        <include refid="queryColumns" />
+        FROM   acc_cust_info /*  客户信息表 */
+        WHERE id > #{minId}
+        <include refid="wherecontation"/>
+        ORDER BY id ASC
+        LIMIT #{pageSize}
+    </select>
+
+    <select id="getCount" parameterType="com.demo.utils.PageQuery" resultType="java.lang.Long">
+        SELECT COUNT(*)  FROM  acc_cust_info  /*  客户信息表 */
+        WHERE 1 = 1
+        <include refid="wherecontation"/>
+    </select>
+
+    <select id="getTotalCount" parameterType="com.demo.utils.Query" resultType="java.lang.Long">
+        SELECT count(*)  FROM  acc_cust_info /* 客户信息表 */
+        WHERE 1=1
+        <include refid="wherecontation"/>
+    </select>
+
+</mapper>
