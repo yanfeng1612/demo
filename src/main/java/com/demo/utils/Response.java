@@ -7,7 +7,7 @@ import com.demo.utils.APIEmRequestStatus;
 /**
  * 服务请求状态API枚举
  * @author model-driven
- * @date 2020-11-25
+ * @date 2020-11-30
  **/
 public class Response<T> implements Serializable {
 

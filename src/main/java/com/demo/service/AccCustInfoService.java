@@ -21,7 +21,7 @@ import com.demo.dao.AccCustInfoMapper;
 /**
  * 客户信息表
  * @author model-driven
- * @date 2020-11-25
+ * @date 2020-11-30
  **/
 @Service("accCustInfoService")
 @Slf4j

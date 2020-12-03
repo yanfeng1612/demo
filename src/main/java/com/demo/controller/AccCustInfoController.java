@@ -19,7 +19,7 @@ import com.demo.service.AccCustInfoService;
 /**
  * 客户信息表
  * @author model-driven
- * @date 2020-11-25
+ * @date 2020-11-30
  **/
 @RestController
 @RequestMapping(value = "/accCustInfo", produces = "application/json; charset=utf-8")
